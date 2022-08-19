@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+package com.virtuslab.phototrip.domain;
+
+message WorldMap {
+  string id = 1;
+  string name = 2;
+}

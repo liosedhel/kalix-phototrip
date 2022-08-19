@@ -1,0 +1,40 @@
+// This is the public API offered by your entity.
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+import "google/api/annotations.proto";
+
+package com.virtuslab.phototrip;
+
+message CreateWorldMap {
+  string worldmap_id = 1 [(kalix.field).entity_key = true];
+  string name = 2;
+}
+
+message ResetValue {
+  string counter_id = 1 [(kalix.field).entity_key = true];
+}
+
+message GetWorldMap {
+  string worldmap_id = 1 [(kalix.field).entity_key = true];
+}
+
+message WorldMapState {
+  string id = 1;
+  string name = 2;
+}
+
+service WorldMapService {
+  option (kalix.codegen) = {
+    value_entity: {
+      name: "com.virtuslab.phototrip.domain.WorldMapService"
+      entity_type: "worldmap"
+      state: "com.virtuslab.phototrip.domain.WorldMap"
+    }
+  };
+  option (kalix.service).acl.allow = { principal: ALL };
+
+  rpc create(CreateWorldMap) returns (google.protobuf.Empty);
+  rpc get(GetWorldMap) returns (WorldMapState);
+}
