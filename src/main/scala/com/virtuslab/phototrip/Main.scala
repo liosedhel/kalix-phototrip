@@ -1,6 +1,7 @@
 package com.virtuslab.phototrip
 
-import com.virtuslab.phototrip.domain.WorldMapService
+import com.virtuslab.phototrip.domain.WorldMapValueEntity
+import com.virtuslab.phototrip.view.{WorldMapAllView, WorldMapByUserIdView}
 import kalix.scalasdk.Kalix
 import org.slf4j.LoggerFactory
 
@@ -19,7 +20,10 @@ object Main {
     // If you prefer, you may remove this and manually register these components in a
     // `Kalix()` instance.
     KalixFactory.withComponents(
-      new WorldMapService(_))
+      createWorldMapValueEntity = new WorldMapValueEntity(_),
+      createWorldMapAllView = new WorldMapAllView(_),
+      createWorldMapByUserIdView = new WorldMapByUserIdView(_)
+    )
   }
 
   def main(args: Array[String]): Unit = {

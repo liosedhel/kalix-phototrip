@@ -1,6 +1,5 @@
 package com.virtuslab.phototrip
 
-import akka.actor.ActorSystem
 import com.google.protobuf.empty.Empty
 import kalix.scalasdk.testkit.KalixTestKit
 import org.scalatest.BeforeAndAfterAll
@@ -32,9 +31,14 @@ class WorldMapServiceIntegrationSpec
   "WorldMapService" must {
 
     "have example test that can be removed" in {
-      pending
-      // use the gRPC client to send requests to the
-      // proxy and verify the results
+      val createWorldMap = CreateWorldMap("1", "My new worldmap", "UID1")
+
+      whenReady(client.create(createWorldMap)){ empty =>
+        empty shouldBe new Empty()
+      }
+      whenReady(client.get(GetWorldMap(worldmapId = createWorldMap.worldmapId))) { map =>
+        map shouldBe CurrentWorldMap(createWorldMap.worldmapId, createWorldMap.name, createWorldMap.userId)
+      }
     }
 
   }

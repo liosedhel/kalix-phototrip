@@ -7,14 +7,14 @@ import kalix.scalasdk.valueentity.ValueEntity
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class WorldMapServiceSpec
+class WorldMapValueEntitySpec
     extends AnyWordSpec
     with Matchers {
 
-  "WorldMapService" must {
+  "WorldMapValueEntity" must {
 
     "have example test that can be removed" in {
-      val service = WorldMapServiceTestKit(new WorldMapService(_))
+      val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
       pending
       // use the testkit to execute a command
       // and verify final updated state:
@@ -27,13 +27,13 @@ class WorldMapServiceSpec
     }
 
     "handle command create" in {
-      val service = WorldMapServiceTestKit(new WorldMapService(_))
+      val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
       pending
       // val result = service.create(phototrip.CreateWorldMap(...))
     }
 
     "handle command get" in {
-      val service = WorldMapServiceTestKit(new WorldMapService(_))
+      val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
       pending
       // val result = service.get(phototrip.GetWorldMap(...))
     }

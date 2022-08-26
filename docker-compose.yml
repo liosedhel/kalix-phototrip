@@ -10,7 +10,8 @@ services:
     environment:
       USER_FUNCTION_HOST: ${USER_FUNCTION_HOST:-host.docker.internal}
       USER_FUNCTION_PORT: ${USER_FUNCTION_PORT:-8080}
-      PUBSUB_EMULATOR_HOST: gcloud-pubsub-emulator     
+      PUBSUB_EMULATOR_HOST: gcloud-pubsub-emulator
+      ACL_ENABLED: "false"
       # Uncomment to disable the JWT dev secret
       # JWT_DEV_SECRET: "false"
       # Uncomment to set the JWT dev secret issuer

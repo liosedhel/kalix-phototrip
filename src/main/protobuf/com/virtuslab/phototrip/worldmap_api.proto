@@ -10,25 +10,23 @@ package com.virtuslab.phototrip;
 message CreateWorldMap {
   string worldmap_id = 1 [(kalix.field).entity_key = true];
   string name = 2;
-}
-
-message ResetValue {
-  string counter_id = 1 [(kalix.field).entity_key = true];
+  string user_id = 3;
 }
 
 message GetWorldMap {
   string worldmap_id = 1 [(kalix.field).entity_key = true];
 }
 
-message WorldMapState {
+message CurrentWorldMap {
   string id = 1;
   string name = 2;
+  string user_id = 3;
 }
 
 service WorldMapService {
   option (kalix.codegen) = {
     value_entity: {
-      name: "com.virtuslab.phototrip.domain.WorldMapService"
+      name: "com.virtuslab.phototrip.domain.WorldMapValueEntity"
       entity_type: "worldmap"
       state: "com.virtuslab.phototrip.domain.WorldMap"
     }
@@ -36,5 +34,9 @@ service WorldMapService {
   option (kalix.service).acl.allow = { principal: ALL };
 
   rpc create(CreateWorldMap) returns (google.protobuf.Empty);
-  rpc get(GetWorldMap) returns (WorldMapState);
+  rpc get(GetWorldMap) returns (CurrentWorldMap) {
+    option (google.api.http) = {
+      get: "/worldmaps/{worldmap_id}"
+    };
+  };
 }

@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package com.virtuslab.phototrip.view;
+
+import "com/virtuslab/phototrip/domain/worldmap_domain.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/any.proto";
+import "google/protobuf/empty.proto";
+
+service WorldMapByUserId {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+  rpc UpdateWorldMap(domain.WorldMap) returns (domain.WorldMap) {
+    option (kalix.method).eventing.in = {
+      value_entity: "worldmap"
+    };
+    option (kalix.method).view.update = {
+      table: "worldmaps"
+    };
+  }
+
+  rpc GetWorldMaps(ByUserIdRequest) returns (stream domain.WorldMap) {
+    option (kalix.method).view.query = {
+      query: "SELECT * FROM worldmaps WHERE user_id = :user_id"
+    };
+  }
+
+  //Error reported from Kalix system: KLX-00101 More than one query per view isn't supported yet.
+//  rpc GetAllWorldMaps(google.protobuf.Empty) returns (stream domain.WorldMap) {
+//    option (kalix.method).view.query = {
+//      query: "SELECT * FROM worldmaps"
+//    };
+//  }
+
+}
+
+service WorldMapAll {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+  rpc UpdateWorldMap(domain.WorldMap) returns (domain.WorldMap) {
+    option (kalix.method).eventing.in = {
+      value_entity: "worldmap"
+    };
+    option (kalix.method).view.update = {
+      table: "worldmaps"
+    };
+  }
+
+  rpc GetAllWorldMaps(google.protobuf.Empty) returns (stream domain.WorldMap) {
+    option (kalix.method).view.query = {
+      query: "SELECT * FROM worldmaps ORDER BY id"
+    };
+  }
+
+}
+
+message ByUserIdRequest {
+  string user_id = 1;
+}
+
