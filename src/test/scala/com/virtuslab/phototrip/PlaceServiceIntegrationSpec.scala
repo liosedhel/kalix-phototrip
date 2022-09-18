@@ -16,7 +16,7 @@ import org.scalatest.wordspec.AnyWordSpec
 // As long as this file exists it will not be overwritten: you can maintain it yourself,
 // or delete it so it is regenerated as needed.
 
-class WorldMapServiceIntegrationSpec
+class PlaceServiceIntegrationSpec
     extends AnyWordSpec
     with Matchers
     with BeforeAndAfterAll
@@ -27,19 +27,14 @@ class WorldMapServiceIntegrationSpec
 
   private val testKit = KalixTestKit(Main.createKalix()).start()
 
-  private val client = testKit.getGrpcClient(classOf[WorldMapService])
+  private val client = testKit.getGrpcClient(classOf[PlaceService])
 
-  "WorldMapService" must {
+  "PlaceService" must {
 
     "have example test that can be removed" in {
-      val createWorldMap = CreateWorldMap("1", "My new worldmap", "UID1")
-
-      whenReady(client.create(createWorldMap)) { empty =>
-        empty shouldBe new Empty()
-      }
-      whenReady(client.get(GetWorldMap(worldmapId = createWorldMap.mapId))) { map =>
-        map shouldBe CurrentWorldMap(createWorldMap.mapId, createWorldMap.creatorId, createWorldMap.description)
-      }
+      pending
+      // use the gRPC client to send requests to the
+      // proxy and verify the results
     }
 
   }

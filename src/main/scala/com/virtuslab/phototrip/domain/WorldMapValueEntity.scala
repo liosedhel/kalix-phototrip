@@ -2,8 +2,6 @@ package com.virtuslab.phototrip.domain
 
 import com.google.protobuf.empty.Empty
 import com.virtuslab.phototrip
-import com.virtuslab.phototrip.CreateWorldMap
-import com.virtuslab.phototrip.view.WorldMapByUserIdView
 import kalix.scalasdk.valueentity.ValueEntity
 import kalix.scalasdk.valueentity.ValueEntityContext
 
@@ -17,7 +15,7 @@ class WorldMapValueEntity(context: ValueEntityContext) extends AbstractWorldMapV
 
   override def create(currentState: WorldMap, createWorldMap: phototrip.CreateWorldMap): ValueEntity.Effect[Empty] = {
     if (isInitialized(currentState)) {
-      effects.error(s"Map with id ${createWorldMap.worldmapId} already exists")
+      effects.error(s"Map with id ${createWorldMap.mapId} already exists")
     } else if(!isValid(createWorldMap)) {
       effects.error(s"Invalid $createWorldMap command")
     } else {
@@ -38,15 +36,15 @@ class WorldMapValueEntity(context: ValueEntityContext) extends AbstractWorldMapV
   }
 
   private def isValid(createWorldMap: phototrip.CreateWorldMap): Boolean = {
-    createWorldMap.userId.nonEmpty
+    createWorldMap.creatorId.nonEmpty
   }
 
   private def toCurrentWorldMap(worldMap: WorldMap) = {
-    phototrip.CurrentWorldMap(worldMap.id, worldMap.name, worldMap.userId)
+    phototrip.CurrentWorldMap(mapId = worldMap.mapId, creatorId = worldMap.creatorId, description = worldMap.description)
   }
 
   private def toWorldMap(createWorldMap: phototrip.CreateWorldMap): WorldMap = {
-    WorldMap(createWorldMap.worldmapId, createWorldMap.name, createWorldMap.userId)
+    WorldMap(mapId = createWorldMap.mapId, creatorId = createWorldMap.creatorId, description = createWorldMap.description)
   }
 
 }

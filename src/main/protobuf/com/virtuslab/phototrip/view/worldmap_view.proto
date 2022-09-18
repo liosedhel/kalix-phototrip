@@ -23,7 +23,7 @@ service WorldMapByUserId {
 
   rpc GetWorldMaps(ByUserIdRequest) returns (stream domain.WorldMap) {
     option (kalix.method).view.query = {
-      query: "SELECT * FROM worldmaps WHERE user_id = :user_id"
+      query: "SELECT * FROM worldmaps WHERE creator_id = :user_id"
     };
   }
 
@@ -52,7 +52,7 @@ service WorldMapAll {
 
   rpc GetAllWorldMaps(google.protobuf.Empty) returns (stream domain.WorldMap) {
     option (kalix.method).view.query = {
-      query: "SELECT * FROM worldmaps ORDER BY id"
+      query: "SELECT * FROM worldmaps ORDER BY map_id"
     };
   }
 

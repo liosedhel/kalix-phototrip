@@ -1,0 +1,32 @@
+// this gets persisted
+syntax = "proto3";
+
+package com.virtuslab.phototrip.domain;
+
+message Url {
+  string url = 1;
+}
+
+message Coordinates {
+  string latitude = 1;
+  string longitude = 2;
+}
+
+message PlaceCreated {
+  string place_id = 1;
+  string map_id = 2;
+  string description = 3;
+  Coordinates coordinates = 4;
+}
+
+message PhotoLinkAdded {
+  Url photo_link = 1;
+}
+
+message Place {
+  string place_id = 1;
+  string map_id = 2;
+  string description = 3;
+  Coordinates coordinates = 4;
+  repeated Url photo_links = 5;
+}

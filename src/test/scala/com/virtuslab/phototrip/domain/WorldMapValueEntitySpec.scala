@@ -26,13 +26,13 @@ class WorldMapValueEntitySpec
       // service.currentState() shouldBe expectedState
     }
 
-    "handle command create" in {
+    "handle command Create" in {
       val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
       pending
       // val result = service.create(phototrip.CreateWorldMap(...))
     }
 
-    "handle command get" in {
+    "handle command Get" in {
       val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
       pending
       // val result = service.get(phototrip.GetWorldMap(...))

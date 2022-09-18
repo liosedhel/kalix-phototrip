@@ -1,7 +1,7 @@
 package com.virtuslab.phototrip
 
-import com.virtuslab.phototrip.domain.WorldMapValueEntity
-import com.virtuslab.phototrip.view.{WorldMapAllView, WorldMapByUserIdView}
+import com.virtuslab.phototrip.domain.{PlaceEventSourcedEntity, PlaceEventSourcedEntityProvider, WorldMapValueEntity, WorldMapValueEntityProvider}
+import com.virtuslab.phototrip.view._
 import kalix.scalasdk.Kalix
 import org.slf4j.LoggerFactory
 
@@ -15,15 +15,13 @@ object Main {
   private val log = LoggerFactory.getLogger("com.virtuslab.phototrip.Main")
 
   def createKalix(): Kalix = {
-    // The KalixFactory automatically registers any generated Actions, Views or Entities,
-    // and is kept up-to-date with any changes in your protobuf definitions.
-    // If you prefer, you may remove this and manually register these components in a
-    // `Kalix()` instance.
-    KalixFactory.withComponents(
-      createWorldMapValueEntity = new WorldMapValueEntity(_),
-      createWorldMapAllView = new WorldMapAllView(_),
-      createWorldMapByUserIdView = new WorldMapByUserIdView(_)
-    )
+    Kalix()
+      .register(WorldMapValueEntityProvider(new WorldMapValueEntity(_)))
+      .register(PlaceEventSourcedEntityProvider(new PlaceEventSourcedEntity(_)))
+      //views
+      .register(WorldMapAllViewProvider(new WorldMapAllView(_)).withViewId("world-map-all-v2"))
+      .register(WorldMapByUserIdViewProvider(new WorldMapByUserIdView(_)).withViewId("world-map-by-user-id-v2"))
+      .register(PlaceByMapIdViewProvider(new PlaceByMapIdViewImpl(_)))
   }
 
   def main(args: Array[String]): Unit = {

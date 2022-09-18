@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package com.virtuslab.phototrip.view;
+
+import "com/virtuslab/phototrip/domain/place_domain.proto";
+import "com/virtuslab/phototrip/place_api.proto";
+import "kalix/annotations.proto";
+import "google/protobuf/any.proto";
+
+message ByWorldMapIdRequest {
+  string map_id = 1;
+}
+
+service PlaceByMapIdView {
+  option (kalix.codegen) = {
+    view: {}
+  };
+
+  rpc ProcessPlaceCreated(com.virtuslab.phototrip.domain.PlaceCreated) returns (com.virtuslab.phototrip.CurrentPlace) {
+    option (kalix.method).eventing.in = {
+      event_sourced_entity: "place"
+    };
+    option (kalix.method).view.update = {
+      table: "places"
+      transform_updates: true
+    };
+  }
+
+  rpc ProcessPhotoLinkAdded(com.virtuslab.phototrip.domain.PhotoLinkAdded) returns (com.virtuslab.phototrip.CurrentPlace) {
+    option (kalix.method).eventing.in = {
+      event_sourced_entity: "place"
+    };
+    option (kalix.method).view.update = {
+      table: "places"
+      transform_updates: true
+    };
+  }
+
+  rpc GetPlace(ByWorldMapIdRequest) returns (stream com.virtuslab.phototrip.CurrentPlace) {
+    option (kalix.method).view.query = {
+      query: "SELECT * FROM places where map_id = :map_id"
+    };
+  }
+}

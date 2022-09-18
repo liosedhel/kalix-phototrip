@@ -1,0 +1,56 @@
+// This is the public API offered by your entity.
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+import "kalix/annotations.proto";
+import "google/api/annotations.proto";
+import "com/virtuslab/phototrip/domain/place_domain.proto";
+
+package com.virtuslab.phototrip;
+
+message CreateNewPlace {
+  string place_id = 1 [(kalix.field).entity_key = true];
+  string map_id = 2;
+  string description = 3;
+  com.virtuslab.phototrip.domain.Coordinates coordinates = 4;
+}
+
+message AddPhotoLinkUrl {
+  string place_id = 1 [(kalix.field).entity_key = true];
+  com.virtuslab.phototrip.domain.Url photoLink = 2;
+}
+
+message GetPlace {
+  string place_id = 1 [(kalix.field).entity_key = true];
+}
+
+message CurrentPlace {
+  string place_id = 1;
+  string map_id = 2;
+  string description = 3;
+  com.virtuslab.phototrip.domain.Coordinates coordinates = 4;
+  repeated com.virtuslab.phototrip.domain.Url photo_links = 5;
+}
+
+service PlaceService {
+  option (kalix.codegen) = {
+    event_sourced_entity: {
+      name: "com.virtuslab.phototrip.domain.PlaceEventSourcedEntity"
+      entity_type: "place"
+      state: "com.virtuslab.phototrip.domain.Place"
+      events: [
+        "com.virtuslab.phototrip.domain.PlaceCreated",
+        "com.virtuslab.phototrip.domain.PhotoLinkAdded"
+      ]
+    }
+  };
+  option (kalix.service).acl.allow = { principal: ALL };
+
+  rpc CreatePlace (CreateNewPlace) returns (google.protobuf.Empty);
+  rpc AddPhotoLink (AddPhotoLinkUrl) returns (google.protobuf.Empty);
+  rpc Get (GetPlace) returns (CurrentPlace) {
+    option (google.api.http) = {
+      get: "/place/{place_id}"
+    };
+  };
+}
