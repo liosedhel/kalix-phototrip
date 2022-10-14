@@ -1,6 +1,5 @@
-package com.virtuslab.phototrip.actions
+package com.virtuslab.phototrip.worldmap.actions
 
-import com.virtuslab.phototrip.GetWorldMap
 import kalix.scalasdk.action.Action
 import kalix.scalasdk.action.ActionCreationContext
 

@@ -1,4 +1,4 @@
-package com.virtuslab.phototrip.view
+package com.virtuslab.phototrip.worldmap.view
 
 import kalix.scalasdk.view.ViewContext
 

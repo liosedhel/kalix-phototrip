@@ -1,7 +1,8 @@
-package com.virtuslab.phototrip.domain
+package com.virtuslab.phototrip.worldmap.api
 
 import com.google.protobuf.empty.Empty
 import com.virtuslab.phototrip
+import com.virtuslab.phototrip.domain.WorldMap
 import kalix.scalasdk.testkit.ValueEntityResult
 import kalix.scalasdk.valueentity.ValueEntity
 import org.scalatest.matchers.should.Matchers

@@ -1,11 +1,12 @@
 syntax = "proto3";
 
-package com.virtuslab.phototrip.view;
+package com.virtuslab.phototrip.worldmap.view;
 
-import "com/virtuslab/phototrip/domain/worldmap_domain.proto";
+import "com/virtuslab/phototrip/worldmap/domain/worldmap_domain.proto";
 import "kalix/annotations.proto";
 import "google/protobuf/any.proto";
 import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
 
 service WorldMapByUserId {
   option (kalix.codegen) = {
@@ -24,6 +25,9 @@ service WorldMapByUserId {
   rpc GetWorldMaps(ByUserIdRequest) returns (stream domain.WorldMap) {
     option (kalix.method).view.query = {
       query: "SELECT * FROM worldmaps WHERE creator_id = :user_id"
+    };
+    option (google.api.http) = {
+      get: "/worldmap/user/{user_id}"
     };
   }
 

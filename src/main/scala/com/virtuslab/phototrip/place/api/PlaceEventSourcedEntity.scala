@@ -1,7 +1,7 @@
-package com.virtuslab.phototrip.place.domain
+package com.virtuslab.phototrip.place.api
 
 import com.google.protobuf.empty.Empty
-import com.virtuslab.phototrip.place.api.{AddPhotoLinkUrl, CreateNewPlace, CurrentPlace, GetPlace}
+import com.virtuslab.phototrip.place.domain.{PhotoLinkAdded, Place, PlaceCreated}
 import kalix.scalasdk.eventsourcedentity.{EventSourcedEntity, EventSourcedEntityContext}
 import org.slf4j.LoggerFactory
 

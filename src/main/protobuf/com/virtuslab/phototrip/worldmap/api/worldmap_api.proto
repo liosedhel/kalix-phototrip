@@ -6,7 +6,7 @@ import "kalix/annotations.proto";
 import "google/api/annotations.proto";
 import "com/virtuslab/phototrip/place/api/place_api.proto";
 
-package com.virtuslab.phototrip;
+package com.virtuslab.phototrip.worldmap.api;
 
 message CreateWorldMap {
   string map_id = 1 [(kalix.field).entity_key = true];
@@ -27,7 +27,7 @@ message CurrentWorldMap {
 service WorldMapService {
   option (kalix.codegen) = {
     value_entity: {
-      name: "com.virtuslab.phototrip.domain.WorldMapValueEntity"
+      name: "com.virtuslab.phototrip.worldmap.api.WorldMapValueEntity"
       entity_type: "worldmap"
       state: "com.virtuslab.phototrip.domain.WorldMap"
     }

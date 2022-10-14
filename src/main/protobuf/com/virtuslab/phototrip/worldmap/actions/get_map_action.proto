@@ -1,5 +1,5 @@
 syntax = "proto3";
-package com.virtuslab.phototrip.actions;
+package com.virtuslab.phototrip.worldmap.actions;
 
 import "kalix/annotations.proto";
 import "com/virtuslab/phototrip/place/api/place_api.proto";

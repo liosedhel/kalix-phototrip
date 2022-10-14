@@ -1,9 +1,9 @@
-package com.virtuslab.phototrip.domain
+package com.virtuslab.phototrip.worldmap.api
 
 import com.google.protobuf.empty.Empty
-import com.virtuslab.phototrip
-import kalix.scalasdk.valueentity.ValueEntity
-import kalix.scalasdk.valueentity.ValueEntityContext
+import com.virtuslab.phototrip.worldmap.api.{CreateWorldMap, CurrentWorldMap, GetWorldMap}
+import com.virtuslab.phototrip.domain.WorldMap
+import kalix.scalasdk.valueentity.{ValueEntity, ValueEntityContext}
 
 // This class was initially generated based on the .proto definition by Kalix tooling.
 //
@@ -13,7 +13,7 @@ import kalix.scalasdk.valueentity.ValueEntityContext
 class WorldMapValueEntity(context: ValueEntityContext) extends AbstractWorldMapValueEntity {
   override def emptyState: WorldMap = WorldMap()
 
-  override def create(currentState: WorldMap, createWorldMap: phototrip.CreateWorldMap): ValueEntity.Effect[Empty] = {
+  override def create(currentState: WorldMap, createWorldMap: CreateWorldMap): ValueEntity.Effect[Empty] = {
     if (isInitialized(currentState)) {
       effects.error(s"Map with id ${createWorldMap.mapId} already exists")
     } else if(!isValid(createWorldMap)) {
@@ -23,7 +23,7 @@ class WorldMapValueEntity(context: ValueEntityContext) extends AbstractWorldMapV
     }
   }
 
-  override def get(currentState: WorldMap, getWorldMap: phototrip.GetWorldMap): ValueEntity.Effect[phototrip.CurrentWorldMap] = {
+  override def get(currentState: WorldMap, getWorldMap: GetWorldMap): ValueEntity.Effect[CurrentWorldMap] = {
     if (currentState == emptyState) {
       effects.error(s"Map ${getWorldMap.worldmapId} does not exists")
     } else {
@@ -35,15 +35,15 @@ class WorldMapValueEntity(context: ValueEntityContext) extends AbstractWorldMapV
     currentState != emptyState
   }
 
-  private def isValid(createWorldMap: phototrip.CreateWorldMap): Boolean = {
+  private def isValid(createWorldMap: CreateWorldMap): Boolean = {
     createWorldMap.creatorId.nonEmpty
   }
 
   private def toCurrentWorldMap(worldMap: WorldMap) = {
-    phototrip.CurrentWorldMap(mapId = worldMap.mapId, creatorId = worldMap.creatorId, description = worldMap.description)
+    CurrentWorldMap(mapId = worldMap.mapId, creatorId = worldMap.creatorId, description = worldMap.description)
   }
 
-  private def toWorldMap(createWorldMap: phototrip.CreateWorldMap): WorldMap = {
+  private def toWorldMap(createWorldMap: CreateWorldMap): WorldMap = {
     WorldMap(mapId = createWorldMap.mapId, creatorId = createWorldMap.creatorId, description = createWorldMap.description)
   }
 

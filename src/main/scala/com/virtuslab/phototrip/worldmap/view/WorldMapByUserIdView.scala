@@ -1,7 +1,5 @@
-package com.virtuslab.phototrip.view
+package com.virtuslab.phototrip.worldmap.view
 
-import com.virtuslab.phototrip.domain.WorldMap
-import kalix.scalasdk.view.View.UpdateEffect
 import kalix.scalasdk.view.ViewContext
 
 // This class was initially generated based on the .proto definition by Kalix tooling.

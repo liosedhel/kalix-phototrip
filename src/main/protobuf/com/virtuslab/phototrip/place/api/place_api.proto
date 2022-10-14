@@ -35,7 +35,7 @@ message CurrentPlace {
 service PlaceService {
   option (kalix.codegen) = {
     event_sourced_entity: {
-      name: "com.virtuslab.phototrip.place.domain.PlaceEventSourcedEntity"
+      name: "com.virtuslab.phototrip.place.api.PlaceEventSourcedEntity"
       entity_type: "place"
       state: "com.virtuslab.phototrip.place.domain.Place"
       events: [
