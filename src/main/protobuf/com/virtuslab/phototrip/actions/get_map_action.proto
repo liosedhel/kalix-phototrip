@@ -1,0 +1,24 @@
+syntax = "proto3";
+package com.virtuslab.phototrip.actions;
+
+import "kalix/annotations.proto";
+import "com/virtuslab/phototrip/place/api/place_api.proto";
+
+message GetFullMap {
+  string map_id = 1;
+}
+
+message FullWorldMap {
+  string map_id = 1;
+  string creator_id = 2;
+  string description = 3;
+  repeated com.virtuslab.phototrip.place.api.CurrentPlace places = 4; // TOOD should be represented with dedicated class?
+}
+
+service GetFullMapAction {
+  option (kalix.codegen) = {
+    action: {}
+  };
+
+  rpc Get(GetFullMap) returns (FullWorldMap) {}
+}

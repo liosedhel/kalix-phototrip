@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package com.virtuslab.phototrip.view;
+package com.virtuslab.phototrip.place.view;
 
-import "com/virtuslab/phototrip/domain/place_domain.proto";
-import "com/virtuslab/phototrip/place_api.proto";
+import "com/virtuslab/phototrip/place/domain/place_domain.proto";
+import "com/virtuslab/phototrip/place/api/place_api.proto";
 import "kalix/annotations.proto";
 import "google/protobuf/any.proto";
 
@@ -16,7 +16,7 @@ service PlaceByMapIdView {
     view: {}
   };
 
-  rpc ProcessPlaceCreated(com.virtuslab.phototrip.domain.PlaceCreated) returns (com.virtuslab.phototrip.CurrentPlace) {
+  rpc ProcessPlaceCreated(com.virtuslab.phototrip.place.domain.PlaceCreated) returns (com.virtuslab.phototrip.place.api.CurrentPlace) {
     option (kalix.method).eventing.in = {
       event_sourced_entity: "place"
     };
@@ -26,7 +26,7 @@ service PlaceByMapIdView {
     };
   }
 
-  rpc ProcessPhotoLinkAdded(com.virtuslab.phototrip.domain.PhotoLinkAdded) returns (com.virtuslab.phototrip.CurrentPlace) {
+  rpc ProcessPhotoLinkAdded(com.virtuslab.phototrip.place.domain.PhotoLinkAdded) returns (com.virtuslab.phototrip.place.api.CurrentPlace) {
     option (kalix.method).eventing.in = {
       event_sourced_entity: "place"
     };
@@ -36,7 +36,7 @@ service PlaceByMapIdView {
     };
   }
 
-  rpc GetPlace(ByWorldMapIdRequest) returns (stream com.virtuslab.phototrip.CurrentPlace) {
+  rpc GetPlace(ByWorldMapIdRequest) returns (stream com.virtuslab.phototrip.place.api.CurrentPlace) {
     option (kalix.method).view.query = {
       query: "SELECT * FROM places where map_id = :map_id"
     };

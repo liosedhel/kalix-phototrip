@@ -1,7 +1,9 @@
 package com.virtuslab.phototrip
 
-import com.virtuslab.phototrip.domain.{PlaceEventSourcedEntity, PlaceEventSourcedEntityProvider, WorldMapValueEntity, WorldMapValueEntityProvider}
-import com.virtuslab.phototrip.view._
+import com.virtuslab.phototrip.domain.{WorldMapValueEntity, WorldMapValueEntityProvider}
+import com.virtuslab.phototrip.place.domain.{PlaceEventSourcedEntity, PlaceEventSourcedEntityProvider}
+import com.virtuslab.phototrip.place.view.{PlaceByMapIdViewImpl, PlaceByMapIdViewProvider}
+import com.virtuslab.phototrip.view.{WorldMapAllView, WorldMapAllViewProvider, WorldMapByUserIdView, WorldMapByUserIdViewProvider}
 import kalix.scalasdk.Kalix
 import org.slf4j.LoggerFactory
 

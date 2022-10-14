@@ -1,10 +1,9 @@
-package com.virtuslab.phototrip.domain
+package com.virtuslab.phototrip.place.domain
 
 import com.google.protobuf.empty.Empty
-import com.virtuslab.phototrip
-import com.virtuslab.phototrip.AddPhotoLinkUrl
-import kalix.scalasdk.eventsourcedentity.EventSourcedEntity
-import kalix.scalasdk.eventsourcedentity.EventSourcedEntityContext
+import com.virtuslab.phototrip.place.api.{AddPhotoLinkUrl, CreateNewPlace, CurrentPlace, GetPlace}
+import kalix.scalasdk.eventsourcedentity.{EventSourcedEntity, EventSourcedEntityContext}
+import org.slf4j.LoggerFactory
 
 // This class was initially generated based on the .proto definition by Kalix tooling.
 //
@@ -12,9 +11,11 @@ import kalix.scalasdk.eventsourcedentity.EventSourcedEntityContext
 // or delete it so it is regenerated as needed.
 
 class PlaceEventSourcedEntity(context: EventSourcedEntityContext) extends AbstractPlaceEventSourcedEntity {
+
+  private val log = LoggerFactory.getLogger(classOf[PlaceEventSourcedEntity])
   override def emptyState: Place = Place() //TODO KB_remark the state cannot be modeled as FSM, meaning each time you should check if Place was created or not
 
-  override def createPlace(currentState: Place, createNewPlace: phototrip.CreateNewPlace): EventSourcedEntity.Effect[Empty] =
+  override def createPlace(currentState: Place, createNewPlace: CreateNewPlace): EventSourcedEntity.Effect[Empty] =
     effects.emitEvent(
       PlaceCreated(createNewPlace.placeId, createNewPlace.mapId, createNewPlace.description, createNewPlace.coordinates)
     ).thenReply(_ => Empty.defaultInstance)
@@ -28,13 +29,15 @@ class PlaceEventSourcedEntity(context: EventSourcedEntityContext) extends Abstra
   override def photoLinkAdded(currentState: Place, photoLinkAdded: PhotoLinkAdded): Place =
     currentState.addPhotoLinks(photoLinkAdded.photoLink.get)
 
-  override def get(currentState: Place, getPlace: phototrip.GetPlace): EventSourcedEntity.Effect[phototrip.CurrentPlace] =
-    effects.reply(phototrip.CurrentPlace(
+  override def get(currentState: Place, getPlace: GetPlace): EventSourcedEntity.Effect[CurrentPlace] = {
+    log.info(s"Current state is: $currentState")
+    effects.reply(CurrentPlace(
       placeId = currentState.placeId,
       mapId = currentState.mapId,
       description = currentState.description,
       coordinates = currentState.coordinates,
       photoLinks = currentState.photoLinks)
     )
+  }
 
 }

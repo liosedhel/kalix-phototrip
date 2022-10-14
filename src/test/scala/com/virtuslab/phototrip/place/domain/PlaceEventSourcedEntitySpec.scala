@@ -1,9 +1,7 @@
-package com.virtuslab.phototrip.domain
+package com.virtuslab.phototrip.place.domain
 
 import com.google.protobuf.empty.Empty
-import com.virtuslab.phototrip
-import com.virtuslab.phototrip.{AddPhotoLinkUrl, CreateNewPlace, CurrentPlace, GetPlace}
-import kalix.scalasdk.eventsourcedentity.EventSourcedEntity
+import com.virtuslab.phototrip.place.api.{AddPhotoLinkUrl, CreateNewPlace, CurrentPlace, GetPlace}
 import kalix.scalasdk.testkit.EventSourcedResult
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -37,7 +35,7 @@ class PlaceEventSourcedEntitySpec extends AnyWordSpec with Matchers {
       val createNewPlace1 = CreateNewPlace(placeId1, mapId, "Some description", Some(Coordinates("50.0662522", "19.9415593")))
       val result: EventSourcedResult[Empty] = testKit.createPlace(createNewPlace1)
       val actualEvent = result.nextEvent[PlaceCreated] //TODO KB there is no typesafety, nextEvent(Any)
-      actualEvent shouldBe PlaceCreated(createNewPlace1.placeId, createNewPlace1.mapId, createNewPlace1.descrieption, createNewPlace1.coordinates)
+      actualEvent shouldBe PlaceCreated(createNewPlace1.placeId, createNewPlace1.mapId, createNewPlace1.description, createNewPlace1.coordinates)
     }
 
     "correctly process commands of type AddPhotoLink" in {

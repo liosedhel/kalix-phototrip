@@ -4,7 +4,7 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "kalix/annotations.proto";
 import "google/api/annotations.proto";
-import "com/virtuslab/phototrip/place_api.proto";
+import "com/virtuslab/phototrip/place/api/place_api.proto";
 
 package com.virtuslab.phototrip;
 
@@ -22,7 +22,6 @@ message CurrentWorldMap {
   string map_id = 1;
   string creator_id = 2;
   string description = 3;
-  repeated com.virtuslab.phototrip.CurrentPlace places = 4; // TOOD should be represented with dedicated class?
 }
 
 service WorldMapService {

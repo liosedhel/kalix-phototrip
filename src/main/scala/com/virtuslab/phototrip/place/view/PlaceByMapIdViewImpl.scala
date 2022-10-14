@@ -1,8 +1,7 @@
-package com.virtuslab.phototrip.view
+package com.virtuslab.phototrip.place.view
 
-import com.virtuslab.phototrip.CurrentPlace
-import com.virtuslab.phototrip.domain.PhotoLinkAdded
-import com.virtuslab.phototrip.domain.PlaceCreated
+import com.virtuslab.phototrip.place.api.CurrentPlace
+import com.virtuslab.phototrip.place.domain.{PhotoLinkAdded, PlaceCreated}
 import kalix.scalasdk.view.View.UpdateEffect
 import kalix.scalasdk.view.ViewContext
 
