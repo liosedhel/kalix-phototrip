@@ -1,0 +1,23 @@
+syntax = "proto3";
+package com.virtuslab.phototrip.worldmap.actions;
+
+import "kalix/annotations.proto";
+import "com/virtuslab/phototrip/worldmap/domain/worldmap_domain.proto";
+import "com/virtuslab/phototrip/place/domain/place_domain.proto";
+import "google/protobuf/empty.proto";
+import "google/protobuf/any.proto";
+
+service WorldmapAndPlacesEventsToTopic {
+  option (kalix.codegen) = {
+    action: {}
+  };
+
+  rpc PlaceCreation (com.virtuslab.phototrip.place.domain.PlaceCreated) returns (com.virtuslab.phototrip.place.domain.PlaceCreated) {
+    option (kalix.method).eventing.in = {
+      event_sourced_entity: "place"
+    };
+    option (kalix.method).eventing.out = {
+      topic: "worldmap-and-place-events"
+    };
+  }
+}

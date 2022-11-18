@@ -1,7 +1,6 @@
 package com.virtuslab.phototrip.worldmap.api
 
 import com.google.protobuf.empty.Empty
-import com.virtuslab.phototrip.worldmap.api.{CreateWorldMap, CurrentWorldMap, GetWorldMap}
 import com.virtuslab.phototrip.domain.WorldMap
 import kalix.scalasdk.valueentity.{ValueEntity, ValueEntityContext}
 
@@ -25,7 +24,7 @@ class WorldMapValueEntity(context: ValueEntityContext) extends AbstractWorldMapV
 
   override def get(currentState: WorldMap, getWorldMap: GetWorldMap): ValueEntity.Effect[CurrentWorldMap] = {
     if (currentState == emptyState) {
-      effects.error(s"Map ${getWorldMap.worldmapId} does not exists")
+      effects.error(s"Map ${getWorldMap.worldmapId} does not exist")
     } else {
       effects.reply(toCurrentWorldMap(currentState))
     }

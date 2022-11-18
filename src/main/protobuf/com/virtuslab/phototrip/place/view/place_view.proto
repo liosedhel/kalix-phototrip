@@ -36,7 +36,7 @@ service PlaceByMapIdView {
     };
   }
 
-  rpc GetPlace(ByWorldMapIdRequest) returns (stream com.virtuslab.phototrip.place.api.CurrentPlace) {
+  rpc GetPlaces(ByWorldMapIdRequest) returns (stream com.virtuslab.phototrip.place.api.CurrentPlace) {
     option (kalix.method).view.query = {
       query: "SELECT * FROM places where map_id = :map_id"
     };

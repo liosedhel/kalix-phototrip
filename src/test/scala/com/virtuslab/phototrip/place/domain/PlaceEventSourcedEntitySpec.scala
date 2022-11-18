@@ -1,7 +1,7 @@
 package com.virtuslab.phototrip.place.domain
 
 import com.google.protobuf.empty.Empty
-import com.virtuslab.phototrip.place.api.{AddPhotoLinkUrl, CreateNewPlace, CurrentPlace, GetPlace, PlaceEventSourcedEntity}
+import com.virtuslab.phototrip.place.api.{AddPhotoLinkUrl, CreateNewPlace, CurrentPlace, GetPlace, PlaceEventSourcedEntity, PlaceEventSourcedEntityTestKit}
 import kalix.scalasdk.testkit.EventSourcedResult
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec

@@ -3,6 +3,7 @@ package com.virtuslab.phototrip.api
 import akka.actor.ActorSystem
 import com.google.protobuf.empty.Empty
 import com.virtuslab.phototrip.Main
+import com.virtuslab.phototrip.worldmap.api.WorldMapService
 import kalix.scalasdk.testkit.KalixTestKit
 import org.scalatest.BeforeAndAfterAll
 import org.scalatest.concurrent.ScalaFutures
