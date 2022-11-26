@@ -1,10 +1,5 @@
 package com.virtuslab.phototrip.worldmap.domain
 
-import com.google.protobuf.empty.Empty
-import com.virtuslab.phototrip
-import com.virtuslab.phototrip.worldmap.api.{WorldMapValueEntity, WorldMapValueEntityTestKit}
-import kalix.scalasdk.testkit.ValueEntityResult
-import kalix.scalasdk.valueentity.ValueEntity
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 

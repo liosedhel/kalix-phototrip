@@ -4,25 +4,31 @@ package com.virtuslab.phototrip.worldmap.view;
 
 import "com/virtuslab/phototrip/worldmap/domain/worldmap_domain.proto";
 import "kalix/annotations.proto";
-import "google/protobuf/any.proto";
 import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
+
+message WorldMapView {
+  string map_id = 1;
+  string creator_id = 2;
+  string description = 3;
+}
 
 service WorldMapByUserId {
   option (kalix.codegen) = {
     view: {}
   };
 
-  rpc UpdateWorldMap(domain.WorldMap) returns (domain.WorldMap) {
+  rpc UpdateWorldMap(domain.WorldMapState) returns (WorldMapView) {
     option (kalix.method).eventing.in = {
       value_entity: "worldmap"
     };
     option (kalix.method).view.update = {
       table: "worldmaps"
+      transform_updates: true
     };
   }
 
-  rpc GetWorldMaps(ByUserIdRequest) returns (stream domain.WorldMap) {
+  rpc GetWorldMaps(ByUserIdRequest) returns (stream WorldMapView) {
     option (kalix.method).view.query = {
       query: "SELECT * FROM worldmaps WHERE creator_id = :user_id"
     };
@@ -31,13 +37,6 @@ service WorldMapByUserId {
     };
   }
 
-  //Error reported from Kalix system: KLX-00101 More than one query per view isn't supported yet.
-//  rpc GetAllWorldMaps(google.protobuf.Empty) returns (stream domain.WorldMap) {
-//    option (kalix.method).view.query = {
-//      query: "SELECT * FROM worldmaps"
-//    };
-//  }
-
 }
 
 service WorldMapAll {
@@ -45,16 +44,17 @@ service WorldMapAll {
     view: {}
   };
 
-  rpc UpdateWorldMap(domain.WorldMap) returns (domain.WorldMap) {
+  rpc UpdateWorldMap(domain.WorldMapState) returns (WorldMapView) {
     option (kalix.method).eventing.in = {
       value_entity: "worldmap"
     };
     option (kalix.method).view.update = {
       table: "worldmaps"
+      transform_updates: true
     };
   }
 
-  rpc GetAllWorldMaps(google.protobuf.Empty) returns (stream domain.WorldMap) {
+  rpc GetAllWorldMaps(google.protobuf.Empty) returns (stream WorldMapView) {
     option (kalix.method).view.query = {
       query: "SELECT * FROM worldmaps ORDER BY map_id"
     };

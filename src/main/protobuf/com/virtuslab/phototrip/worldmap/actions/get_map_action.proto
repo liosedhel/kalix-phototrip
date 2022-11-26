@@ -2,6 +2,7 @@ syntax = "proto3";
 package com.virtuslab.phototrip.worldmap.actions;
 
 import "kalix/annotations.proto";
+import "google/api/annotations.proto";
 import "com/virtuslab/phototrip/place/api/place_api.proto";
 
 message GetFullMap {
@@ -20,5 +21,9 @@ service GetFullMapAction {
     action: {}
   };
 
-  rpc Get(GetFullMap) returns (FullWorldMap) {}
+  rpc Get(GetFullMap) returns (FullWorldMap) {
+    option (google.api.http) = {
+      get: "/worldmaps-full/{map_id}"
+    };
+  }
 }

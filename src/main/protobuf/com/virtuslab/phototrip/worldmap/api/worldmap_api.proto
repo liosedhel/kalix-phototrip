@@ -4,7 +4,6 @@ syntax = "proto3";
 import "google/protobuf/empty.proto";
 import "kalix/annotations.proto";
 import "google/api/annotations.proto";
-import "com/virtuslab/phototrip/place/api/place_api.proto";
 
 package com.virtuslab.phototrip.worldmap.api;
 
@@ -27,9 +26,9 @@ message CurrentWorldMap {
 service WorldMapService {
   option (kalix.codegen) = {
     value_entity: {
-      name: "com.virtuslab.phototrip.worldmap.api.WorldMapValueEntity"
+      name: "com.virtuslab.phototrip.worldmap.domain.WorldMapValueEntity"
       entity_type: "worldmap"
-      state: "com.virtuslab.phototrip.domain.WorldMap"
+      state: "com.virtuslab.phototrip.worldmap.domain.WorldMapState"
     }
   };
   option (kalix.service).acl.allow = { principal: ALL };

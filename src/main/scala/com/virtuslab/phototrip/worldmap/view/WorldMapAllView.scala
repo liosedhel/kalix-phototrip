@@ -1,14 +1,15 @@
 package com.virtuslab.phototrip.worldmap.view
 
+import com.virtuslab.phototrip.worldmap.domain.WorldMapState
+import kalix.scalasdk.view.View.UpdateEffect
 import kalix.scalasdk.view.ViewContext
-
-// This class was initially generated based on the .proto definition by Kalix tooling.
-//
-// As long as this file exists it will not be overwritten: you can maintain it yourself,
-// or delete it so it is regenerated as needed.
 
 class WorldMapAllView(context: ViewContext) extends AbstractWorldMapAllView {
 
+  override def emptyState: WorldMapView = WorldMapView.defaultInstance
 
-  
+  override def updateWorldMap(state: WorldMapView, worldMapState: WorldMapState): UpdateEffect[WorldMapView] = {
+    effects.updateState(WorldMapView(worldMapState.mapId, worldMapState.creatorId, worldMapState.description))
+  }
+
 }

@@ -5,7 +5,6 @@ package com.virtuslab.phototrip.place.view;
 import "com/virtuslab/phototrip/place/domain/place_domain.proto";
 import "com/virtuslab/phototrip/place/api/place_api.proto";
 import "kalix/annotations.proto";
-import "google/protobuf/any.proto";
 
 message ByWorldMapIdRequest {
   string map_id = 1;

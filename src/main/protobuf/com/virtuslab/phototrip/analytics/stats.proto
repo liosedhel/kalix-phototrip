@@ -1,0 +1,61 @@
+syntax = "proto3";
+package com.virtuslab.phototrip.analytics;
+
+import "kalix/annotations.proto";
+import "com/virtuslab/phototrip/worldmap/actions/world_and_places_topic_action.proto";
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+
+message NewMap {
+  string key = 1  [(kalix.field).entity_key = true];
+  string map_id = 2;
+}
+
+message NewPlace {
+  string key = 1  [(kalix.field).entity_key = true];
+  string place_id = 2;
+}
+
+message GetStats {
+  string key = 1  [(kalix.field).entity_key = true];
+  string place_id = 2;
+}
+
+message Stats {
+  repeated string maps = 1;
+  repeated string places = 2;
+}
+
+service StatsService {
+  option (kalix.codegen) = {
+    value_entity: {
+      name: "com.virtuslab.phototrip.analytics.StatsValueEntity"
+      entity_type: "stats"
+      state: "com.virtuslab.phototrip.analytics.Stats"
+    }
+  };
+
+  rpc MapUpdate (NewMap) returns (google.protobuf.Empty) {
+  }
+
+  rpc PlaceCreation (NewPlace) returns (google.protobuf.Empty) {
+  }
+
+  rpc Get (GetStats) returns (Stats) {
+  }
+}
+
+service StatsViewAction {
+  option (kalix.codegen) = {
+    action: {
+
+    }
+  };
+
+  rpc GetStats (google.protobuf.Empty) returns (Stats) {
+    option (google.api.http) = {
+      get: "/analytics/stats/all"
+    };
+  }
+}

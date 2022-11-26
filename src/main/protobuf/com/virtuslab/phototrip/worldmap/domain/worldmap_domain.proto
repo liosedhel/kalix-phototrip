@@ -1,9 +1,9 @@
 //this gets persisted - should be backward compatible, do not break!
 syntax = "proto3";
 
-package com.virtuslab.phototrip.domain;
+package com.virtuslab.phototrip.worldmap.domain;
 
-message WorldMap {
+message WorldMapState {
   string map_id = 1;
   string creator_id = 2;
   string description = 3;

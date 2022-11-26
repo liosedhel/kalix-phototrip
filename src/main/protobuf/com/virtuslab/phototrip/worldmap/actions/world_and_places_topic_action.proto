@@ -4,20 +4,46 @@ package com.virtuslab.phototrip.worldmap.actions;
 import "kalix/annotations.proto";
 import "com/virtuslab/phototrip/worldmap/domain/worldmap_domain.proto";
 import "com/virtuslab/phototrip/place/domain/place_domain.proto";
-import "google/protobuf/empty.proto";
-import "google/protobuf/any.proto";
 
-service WorldmapAndPlacesEventsToTopic {
+message Coordinates {
+  string latitude = 1;
+  string longitude = 2;
+}
+
+message PlaceCreatedMessage {
+  string place_id = 1;
+  string map_id = 2;
+  string description = 3;
+  Coordinates coordinates = 4;
+}
+
+message WorldMapUpdatedMessage {
+  string map_id = 1;
+  string creator_id = 2;
+  string description = 3;
+}
+
+service WorldMapAndPlacesEventsToTopic {
   option (kalix.codegen) = {
     action: {}
   };
 
-  rpc PlaceCreation (com.virtuslab.phototrip.place.domain.PlaceCreated) returns (com.virtuslab.phototrip.place.domain.PlaceCreated) {
+  rpc PlaceCreation (com.virtuslab.phototrip.place.domain.PlaceCreated) returns (PlaceCreatedMessage) {
     option (kalix.method).eventing.in = {
       event_sourced_entity: "place"
     };
     option (kalix.method).eventing.out = {
-      topic: "worldmap-and-place-events"
+      topic: "analytics-events"
     };
   }
+
+  rpc WorldMapUpdate (com.virtuslab.phototrip.worldmap.domain.WorldMapState) returns (WorldMapUpdatedMessage) {
+    option (kalix.method).eventing.in = {
+      value_entity: "worldmap"
+    };
+    option (kalix.method).eventing.out = {
+      topic: "analytics-events"
+    };
+  }
+
 }

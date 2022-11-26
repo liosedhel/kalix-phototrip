@@ -1,21 +1,20 @@
-package com.virtuslab.phototrip.worldmap.api
+package com.virtuslab.phototrip.analytics
 
 import com.google.protobuf.empty.Empty
-import com.virtuslab.phototrip
-import com.virtuslab.phototrip.domain.WorldMap
+import com.virtuslab.phototrip.analytics
 import kalix.scalasdk.testkit.ValueEntityResult
 import kalix.scalasdk.valueentity.ValueEntity
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class WorldMapValueEntitySpec
+class StatsValueEntitySpec
     extends AnyWordSpec
     with Matchers {
 
-  "WorldMapValueEntity" must {
+  "StatsValueEntity" must {
 
     "have example test that can be removed" in {
-      val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
+      val service = StatsValueEntityTestKit(new StatsValueEntity(_))
       pending
       // use the testkit to execute a command
       // and verify final updated state:
@@ -27,16 +26,22 @@ class WorldMapValueEntitySpec
       // service.currentState() shouldBe expectedState
     }
 
-    "handle command Create" in {
-      val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
+    "handle command MapUpdate" in {
+      val service = StatsValueEntityTestKit(new StatsValueEntity(_))
       pending
-      // val result = service.create(phototrip.CreateWorldMap(...))
+      // val result = service.mapUpdate(NewMap(...))
+    }
+
+    "handle command PlaceCreation" in {
+      val service = StatsValueEntityTestKit(new StatsValueEntity(_))
+      pending
+      // val result = service.placeCreation(NewPlace(...))
     }
 
     "handle command Get" in {
-      val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
+      val service = StatsValueEntityTestKit(new StatsValueEntity(_))
       pending
-      // val result = service.get(phototrip.GetWorldMap(...))
+      // val result = service.get(GetStats(...))
     }
 
   }

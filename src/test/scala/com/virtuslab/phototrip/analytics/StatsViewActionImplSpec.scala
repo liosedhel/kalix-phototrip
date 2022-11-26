@@ -1,6 +1,6 @@
-package com.virtuslab.phototrip.worldmap.actions
+package com.virtuslab.phototrip.analytics
 
-import com.virtuslab.phototrip.place.domain.PlaceCreated
+import com.google.protobuf.empty.Empty
 import kalix.scalasdk.action.Action
 import kalix.scalasdk.testkit.ActionResult
 import org.scalatest.matchers.should.Matchers
@@ -11,14 +11,14 @@ import org.scalatest.wordspec.AnyWordSpec
 // As long as this file exists it will not be overwritten: you can maintain it yourself,
 // or delete it so it is regenerated as needed.
 
-class WorldmapAndPlacesEventsToTopicActionSpec
+class StatsViewActionImplSpec
     extends AnyWordSpec
     with Matchers {
 
-  "WorldmapAndPlacesEventsToTopicAction" must {
+  "StatsViewActionImpl" must {
 
     "have example test that can be removed" in {
-      val service = WorldMapAndPlacesEventsToTopicActionTestKit(new WorldMapAndPlacesEventsToTopicAction(_))
+      val service = StatsViewActionImplTestKit(new StatsViewActionImpl(_))
       pending
       // use the testkit to execute a command
       // and verify final updated state:
@@ -27,10 +27,10 @@ class WorldmapAndPlacesEventsToTopicActionSpec
       // result.reply shouldBe expectedReply
     }
 
-    "handle command PlaceCreation" in {
-      val service = WorldMapAndPlacesEventsToTopicActionTestKit(new WorldMapAndPlacesEventsToTopicAction(_))
+    "handle command GetStats" in {
+      val service = StatsViewActionImplTestKit(new StatsViewActionImpl(_))
           pending
-      // val result = service.placeCreation(PlaceCreated(...))
+      // val result = service.getStats(Empty(...))
     }
 
   }

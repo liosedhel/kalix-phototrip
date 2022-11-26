@@ -1,0 +1,26 @@
+syntax = "proto3";
+package com.virtuslab.phototrip.analytics;
+
+import "kalix/annotations.proto";
+import "com/virtuslab/phototrip/worldmap/actions/world_and_places_topic_action.proto";
+import "google/protobuf/empty.proto";
+
+
+service ReadFromAnalyticsTopic {
+  option (kalix.codegen) = {
+    action: {}
+  };
+
+  rpc PlaceCreation (com.virtuslab.phototrip.worldmap.actions.PlaceCreatedMessage) returns (google.protobuf.Empty) {
+    option (kalix.method).eventing.in = {
+      topic: "analytics-events"
+    };
+  }
+
+  rpc WorldMapUpdate (com.virtuslab.phototrip.worldmap.actions.WorldMapUpdatedMessage) returns (google.protobuf.Empty) {
+    option (kalix.method).eventing.in = {
+      topic: "analytics-events"
+    };
+  }
+
+}
