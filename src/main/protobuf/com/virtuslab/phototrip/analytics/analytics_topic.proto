@@ -11,13 +11,15 @@ service ReadFromAnalyticsTopic {
     action: {}
   };
 
-  rpc PlaceCreation (com.virtuslab.phototrip.worldmap.actions.PlaceCreatedMessage) returns (google.protobuf.Empty) {
+  rpc PlaceCreation (com.virtuslab.phototrip.worldmap.actions.PlaceCreatedMessage)
+      returns (google.protobuf.Empty) {
     option (kalix.method).eventing.in = {
       topic: "analytics-events"
     };
   }
 
-  rpc WorldMapUpdate (com.virtuslab.phototrip.worldmap.actions.WorldMapUpdatedMessage) returns (google.protobuf.Empty) {
+  rpc WorldMapUpdate (com.virtuslab.phototrip.worldmap.actions.WorldMapUpdatedMessage)
+      returns (google.protobuf.Empty) {
     option (kalix.method).eventing.in = {
       topic: "analytics-events"
     };

@@ -44,6 +44,10 @@ service StatsService {
 
   rpc Get (GetStats) returns (Stats) {
   }
+
+  rpc Reset (google.protobuf.Empty) returns (google.protobuf.Empty) {
+
+  }
 }
 
 service StatsViewAction {
@@ -56,6 +60,12 @@ service StatsViewAction {
   rpc GetStats (google.protobuf.Empty) returns (Stats) {
     option (google.api.http) = {
       get: "/analytics/stats/all"
+    };
+  }
+
+  rpc Reset (google.protobuf.Empty) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/analytics/stats/reset"
     };
   }
 }

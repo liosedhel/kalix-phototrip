@@ -1,5 +1,6 @@
 package com.virtuslab.phototrip.worldmap.domain
 
+import com.virtuslab.phototrip.worldmap.api.{CreateWorldMap, CurrentWorldMap, GetWorldMap}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
@@ -9,29 +10,20 @@ class WorldMapValueEntitySpec
 
   "WorldMapValueEntity" must {
 
-    "have example test that can be removed" in {
-      val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
-      pending
-      // use the testkit to execute a command
-      // and verify final updated state:
-      // val result = service.someOperation(SomeRequest)
-      // verify the reply
-      // val reply = result.getReply()
-      // reply shouldBe expectedReply
-      // verify the final state after the command
-      // service.currentState() shouldBe expectedState
-    }
-
     "handle command Create" in {
-      val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
-      pending
-      // val result = service.create(phototrip.CreateWorldMap(...))
+      val worldMapValueEntity = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
+      val createMessage = CreateWorldMap(mapId = "Map1", creatorId = "Creator1", description = "First map")
+      val result = worldMapValueEntity.create(createMessage)
+      result.isError shouldBe false
+      worldMapValueEntity.currentState() shouldBe WorldMapState(createMessage.mapId, createMessage.creatorId, createMessage.description)
     }
 
     "handle command Get" in {
-      val service = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
-      pending
-      // val result = service.get(phototrip.GetWorldMap(...))
+      val worldMapValueEntity = WorldMapValueEntityTestKit(new WorldMapValueEntity(_))
+      val createMessage = CreateWorldMap(mapId = "Map1", creatorId = "Creator1", description = "First map")
+      worldMapValueEntity.create(createMessage)
+      val result = worldMapValueEntity.get(GetWorldMap(createMessage.mapId))
+      result.reply shouldBe CurrentWorldMap(createMessage.mapId, createMessage.creatorId, createMessage.description)
     }
 
   }

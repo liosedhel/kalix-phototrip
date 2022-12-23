@@ -14,13 +14,18 @@ message CreateWorldMap {
 }
 
 message GetWorldMap {
-  string worldmap_id = 1 [(kalix.field).entity_key = true];
+  string map_id = 1 [(kalix.field).entity_key = true];
 }
 
 message CurrentWorldMap {
   string map_id = 1;
   string creator_id = 2;
   string description = 3;
+}
+
+message UpdateWorldMapDescription {
+  string map_id = 1 [(kalix.field).entity_key = true];
+  string description = 2;
 }
 
 service WorldMapService {
@@ -36,7 +41,13 @@ service WorldMapService {
   rpc Create (CreateWorldMap) returns (google.protobuf.Empty);
   rpc Get (GetWorldMap) returns (CurrentWorldMap) {
     option (google.api.http) = {
-      get: "/worldmaps/{worldmap_id}"
+      get: "/worldmaps/{map_id}"
     };
   };
+
+  rpc UpdateDescription (UpdateWorldMapDescription) returns (google.protobuf.Empty){
+    option (google.api.http) = {
+      post: "/worldmaps/{map_id}"
+    };
+  }
 }
