@@ -1,6 +1,7 @@
 package com.virtuslab.phototrip.worldmap.actions
 
 import com.virtuslab.phototrip.place.view.{ ByWorldMapIdRequest, PlaceByMapIdView }
+import com.virtuslab.phototrip.user.api.GetUser
 import com.virtuslab.phototrip.worldmap.api.GetWorldMap
 
 import akka.stream.scaladsl.Sink
@@ -15,8 +16,9 @@ class GetFullMapActionImpl(creationContext: ActionCreationContext, placesService
     val placesView = actionContext.getGrpcClient(classOf[PlaceByMapIdView], placesService)
     val fullWorldMap = for {
       map    <- components.worldMapValueEntity.get(GetWorldMap(getFullMap.mapId)).execute()
+      user   <- components.userReplicatedEntity.get(GetUser(map.creatorId)).execute()
       places <- placesView.getPlaces(ByWorldMapIdRequest(map.mapId)).runWith(Sink.seq)(actionContext.materializer())
-    } yield FullWorldMap(map.mapId, map.creatorId, map.description, places)
+    } yield FullWorldMap(map.mapId, map.creatorId, user.nick, user.email, map.description, places)
 
     effects.asyncReply(fullWorldMap)
   }

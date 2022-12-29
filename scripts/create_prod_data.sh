@@ -2,6 +2,9 @@
 
 ROUTE_HOSTNAME="dark-lake-8703.us-east1.kalix.app:443"
 REST_ROUTE_HOSTNAME="https://${ROUTE_HOSTNAME}"
+echo "Creating user"
+grpcurl -d '{"user_id": "User1", "nick": "kalix", "email": "kalix@kalix.com"}' $ROUTE_HOSTNAME com.virtuslab.phototrip.user.api.UserService/Create
+
 echo "Creating new Map1"
 grpcurl -d '{"map_id": "Map1", "creator_id": "User1", "description": "Map for User1"}' $ROUTE_HOSTNAME com.virtuslab.phototrip.worldmap.api.WorldMapService/Create
 
@@ -38,4 +41,6 @@ curl "${REST_ROUTE_HOSTNAME}/analytics/stats/all"
 
 
 #update map description
-grpcurl -d '{"map_id": "Map1", "creator_id": "User1", "description": "Map for User1 description 2"}' $ROUTE_HOSTNAME com.virtuslab.phototrip.worldmap.api.WorldMapService/UpdateDescription
+grpcurl -d '{"map_id": "Map1", "description": "Map for User1 description 2"}' $ROUTE_HOSTNAME com.virtuslab.phototrip.worldmap.api.WorldMapService/UpdateDescription
+
+curl -XDELETE "${REST_ROUTE_HOSTNAME}/analytics/stats/reset"

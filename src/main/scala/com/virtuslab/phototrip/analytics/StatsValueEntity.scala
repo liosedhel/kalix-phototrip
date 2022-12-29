@@ -1,7 +1,6 @@
 package com.virtuslab.phototrip.analytics
 
 import com.google.protobuf.empty.Empty
-import kalix.protocol.component.SideEffect
 import kalix.scalasdk.valueentity.ValueEntity
 import kalix.scalasdk.valueentity.ValueEntityContext
 
@@ -20,7 +19,6 @@ class StatsValueEntity(context: ValueEntityContext) extends AbstractStatsValueEn
 
   override def get(currentState: Stats, getStats: GetStats): ValueEntity.Effect[Stats] = effects.reply(currentState)
 
-  override def reset(currentState: Stats, empty: Empty): ValueEntity.Effect[Empty] = {
+  override def reset(currentState: Stats, resetStats: ResetStats): ValueEntity.Effect[Empty] =
     effects.deleteState().thenReply(Empty.defaultInstance)
-  }
 }

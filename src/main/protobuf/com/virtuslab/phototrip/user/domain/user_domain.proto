@@ -1,0 +1,11 @@
+// this gets persisted
+syntax = "proto3";
+
+package com.virtuslab.phototrip.user.domain;
+
+
+message User {
+  string user_id = 1;
+  string email = 2;
+  string nick = 3;
+}

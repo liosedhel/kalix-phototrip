@@ -12,8 +12,10 @@ message GetFullMap {
 message FullWorldMap {
   string map_id = 1;
   string creator_id = 2;
-  string description = 3;
-  repeated com.virtuslab.phototrip.place.api.CurrentPlace places = 4; // TOOD should be represented with dedicated class?
+  string creator_nick = 3;
+  string creator_email = 4;
+  string description = 5;
+  repeated com.virtuslab.phototrip.place.api.CurrentPlace places = 6; // TOOD should be represented with dedicated class?
 }
 
 service GetFullMapAction {

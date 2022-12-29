@@ -10,5 +10,5 @@ class StatsViewActionImpl(creationContext: ActionCreationContext) extends Abstra
     effects.forward(components.statsValueEntity.get(GetStats(StatsValueEntity.key)))
 
   override def reset(empty: Empty): Action.Effect[Empty] =
-    effects.forward(components.statsValueEntity.reset(Empty.defaultInstance))
+    effects.forward(components.statsValueEntity.reset(ResetStats(StatsValueEntity.key)))
 }

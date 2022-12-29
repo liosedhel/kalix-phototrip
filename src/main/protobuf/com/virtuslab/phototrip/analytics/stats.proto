@@ -22,6 +22,10 @@ message GetStats {
   string place_id = 2;
 }
 
+message ResetStats {
+  string key = 1 [(kalix.field).entity_key = true];
+}
+
 message Stats {
   repeated string maps = 1;
   repeated string places = 2;
@@ -45,7 +49,7 @@ service StatsService {
   rpc Get (GetStats) returns (Stats) {
   }
 
-  rpc Reset (google.protobuf.Empty) returns (google.protobuf.Empty) {
+  rpc Reset (ResetStats) returns (google.protobuf.Empty) {
 
   }
 }

@@ -3,6 +3,7 @@ package com.virtuslab.phototrip
 import com.virtuslab.phototrip.analytics.{ ReadFromAnalyticsTopicAction, ReadFromAnalyticsTopicActionProvider, StatsValueEntity, StatsValueEntityProvider, StatsViewActionImpl, StatsViewActionProvider }
 import com.virtuslab.phototrip.place.domain.{ PlaceEventSourcedEntity, PlaceEventSourcedEntityProvider }
 import com.virtuslab.phototrip.place.view.{ PlaceByMapIdViewImpl, PlaceByMapIdViewProvider }
+import com.virtuslab.phototrip.user.domain.{ UserReplicatedEntity, UserReplicatedEntityProvider }
 import com.virtuslab.phototrip.worldmap.actions.{ GetFullMapActionImpl, GetFullMapActionProvider, WorldMapAndPlacesEventsToTopicAction, WorldMapAndPlacesEventsToTopicActionProvider }
 import com.virtuslab.phototrip.worldmap.domain.{ WorldMapValueEntity, WorldMapValueEntityProvider }
 import com.virtuslab.phototrip.worldmap.view.{ WorldMapAllView, WorldMapAllViewProvider, WorldMapByUserIdView, WorldMapByUserIdViewProvider }
@@ -35,6 +36,7 @@ object Main {
       .register(ReadFromAnalyticsTopicActionProvider(new ReadFromAnalyticsTopicAction(_)))
       .register(StatsValueEntityProvider(new StatsValueEntity(_)))
       .register(StatsViewActionProvider(new StatsViewActionImpl(_)))
+      .register(UserReplicatedEntityProvider(new UserReplicatedEntity(_)))
   }
 
   def main(args: Array[String]): Unit = {

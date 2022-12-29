@@ -12,7 +12,10 @@ class PlaceEventSourcedEntity(context: EventSourcedEntityContext) extends Abstra
   override def emptyState: Place =
     Place() // TODO KB_remark the state cannot be modeled as FSM, meaning each time you should check if Place was created or not
 
-  override def createPlace(currentState: Place, createNewPlace: api.CreateNewPlace): EventSourcedEntity.Effect[Empty] = {
+  override def createPlace(
+    currentState: Place,
+    createNewPlace: api.CreateNewPlace
+  ): EventSourcedEntity.Effect[Empty] = {
     if (currentState.placeId != "") {
       effects.reply(Empty.defaultInstance)
     } else {

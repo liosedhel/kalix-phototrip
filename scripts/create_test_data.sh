@@ -1,6 +1,8 @@
 #!/bin/sh
 
 PORT=${1:-9000}
+grpcurl -d '{"user_id": "User1", "nick": "kalix", "email": "kalix@kalix.com"}' -plaintext localhost:$PORT com.virtuslab.phototrip.user.api.UserService/Create
+
 grpcurl -d '{"map_id": "Map1", "creator_id": "User1", "description": "Map for User1"}' -plaintext localhost:$PORT com.virtuslab.phototrip.worldmap.api.WorldMapService/Create
 
 sleep 1
@@ -31,4 +33,4 @@ grpcurl -d '{"map_id": "Map1"}' -plaintext localhost:$PORT  com.virtuslab.photot
 
 grpcurl -plaintext localhost:$PORT  com.virtuslab.phototrip.analytics.StatsViewAction/GetStats
 
-grpcurl -d '{"map_id": "Map1", "creator_id": "User1", "description": "Map for User1 description 2"}' -plaintext localhost:$PORT com.virtuslab.phototrip.worldmap.api.WorldMapService/UpdateDescription
+grpcurl -d '{"map_id": "Map1", "description": "Map for User1 description 2"}' -plaintext localhost:$PORT com.virtuslab.phototrip.worldmap.api.WorldMapService/UpdateDescription

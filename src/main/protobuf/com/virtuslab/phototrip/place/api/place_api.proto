@@ -50,7 +50,7 @@ service PlaceService {
   rpc AddPhotoLink (AddPhotoLinkUrl) returns (google.protobuf.Empty);
   rpc Get (GetPlace) returns (CurrentPlace) {
     option (google.api.http) = {
-      get: "/place/{place_id}"
+      get: "/places/{place_id}"
     };
   };
 }
